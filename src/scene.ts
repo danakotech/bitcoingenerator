@@ -247,6 +247,7 @@ export function createScene(canvas: HTMLCanvasElement): SceneApi | null {
   document.addEventListener('visibilitychange', () => (visible = !document.hidden));
 
   let lastT = performance.now();
+  let first = true;
   const chainPos = chainGeo.attributes.position as THREE.BufferAttribute;
   const motion = reduced ? 0.25 : 1;
   let elapsed = 0;
@@ -261,6 +262,11 @@ export function createScene(canvas: HTMLCanvasElement): SceneApi | null {
     const t = elapsed;
 
     updateAnchor();
+    if (first) {
+      first = false;
+      st.x.c = st.x.t;
+      st.y.c = st.y.t;
+    }
     st.x.c = damp(st.x.c, st.x.t, 0.07, dt);
     st.y.c = damp(st.y.c, st.y.t, 0.07, dt);
     st.s.c = damp(st.s.c, st.s.t, 0.06, dt);

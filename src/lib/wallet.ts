@@ -12,6 +12,7 @@ import { HDKey } from '@scure/bip32';
 import { bech32, createBase58check } from '@scure/base';
 import { sha256 } from '@noble/hashes/sha2.js';
 import { ripemd160 } from '@noble/hashes/legacy.js';
+import { assertSealed } from './sig';
 
 export const DERIVATION_PATH = "m/84'/0'/0'/0/0";
 export type Words = 12 | 24;
@@ -86,6 +87,7 @@ export function toWIF(priv: Uint8Array): string {
 const hex = (u: Uint8Array) => Array.from(u, (b) => b.toString(16).padStart(2, '0')).join('');
 
 export function walletFromMnemonic(mnemonic: string): Wallet {
+  assertSealed();
   const m = mnemonic.trim().toLowerCase().split(/\s+/).join(' ');
   if (!validateMnemonic(m, wordlist)) throw new Error('Frase BIP39 no válida');
   const seed = mnemonicToSeedSync(m);
@@ -106,6 +108,7 @@ export function walletFromMnemonic(mnemonic: string): Wallet {
 }
 
 export function generateWallet(words: Words = 12): Wallet {
+  assertSealed();
   const ent = makeEntropy(words === 24 ? 32 : 16);
   const mnemonic = entropyToMnemonic(ent, wordlist);
   ent.fill(0);

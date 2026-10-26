@@ -12,6 +12,9 @@ const es = {
     'Genera gratis una dirección Bitcoin SegWit (bc1q) con frase semilla BIP39 de 12 o 24 palabras, directamente en tu navegador, y descárgala como cartera de papel en PDF. Pensado solo para importes pequeños.',
   ogAlt: 'Moneda Bitcoin 3D y cartera de papel de direccionesbitcoin.com',
   nav: { gen: 'Generar', bulk: 'Masiva', offline: 'Offline', guide: 'Guía', faq: 'FAQ' },
+  keywords: 'generador de direcciones bitcoin, dirección bitcoin, cartera de papel bitcoin, paper wallet, frase semilla, BIP39, BIP84, SegWit, bc1q, clave privada WIF, regalar bitcoin, monedero bitcoin offline, alternativa bitaddress',
+  howTo: { name: 'Cómo crear una cartera de papel Bitcoin', steps: ['Abre direccionesbitcoin.com (o su versión offline) y mueve el ratón sobre la moneda para añadir azar.', 'Elige una frase semilla de 12 o 24 palabras y pulsa «Generar dirección».', 'Descarga la cartera en PDF, imprímela, recórtala y dóblala por la línea central.', 'Envía solo una cantidad pequeña de bitcoin a la dirección bc1q de la cara pública.'] },
+  breadcrumb: 'Inicio',
   langSwitch: 'EN',
   langSwitchLabel: 'View in English',
   skip: 'Saltar al generador',
@@ -121,6 +124,17 @@ const es = {
     ],
   },
 
+  about: {
+    kicker: '07 — Sobre direccionesbitcoin.com',
+    title: 'Generador de direcciones Bitcoin y carteras de papel, hecho para lo pequeño',
+    paras: [
+      'direccionesbitcoin.com es un generador gratuito de direcciones Bitcoin que crea, en tu propio navegador, una dirección SegWit nativa (bc1q) junto a su frase semilla BIP39 y su clave privada WIF. Es una alternativa moderna a los generadores clásicos de carteras de papel (paper wallets) como bitaddress.org, con el estándar actual BIP84, compatible con cualquier wallet.',
+      'Puedes descargar tu cartera de papel Bitcoin en un PDF listo para imprimir, recortar y doblar; crear muchas direcciones a la vez para regalar bitcoin en eventos, clases o sorteos; o usar la versión offline, sin conexión a internet, para la máxima seguridad.',
+      'Su propósito es educativo y práctico: regalar tus primeros satoshis, recibir propinas o probar Bitcoin con cantidades pequeñas. Para guardar ahorros utiliza siempre un monedero físico (hardware wallet).',
+    ],
+    tags: ['Generador de direcciones Bitcoin', 'Cartera de papel Bitcoin', 'Paper wallet', 'Frase semilla BIP39', 'SegWit bc1q', 'Regalar bitcoin', 'Monedero Bitcoin offline', 'Clave privada WIF'],
+  },
+
   faq: {
     kicker: '06 — Preguntas frecuentes',
     title: 'Preguntas frecuentes',
@@ -133,6 +147,9 @@ const es = {
       ['¿Qué es m/84\'/0\'/0\'/0/0?', 'Es la ruta de derivación: indica a la wallet qué dirección sacar de tu frase. Es la primera dirección de recepción estándar BIP84, la que cualquier wallet mostrará al importar la frase.'],
       ['¿Y si pierdo el papel?', 'Si pierdes la frase semilla y la clave privada, los bitcoin de esa dirección se pierden para siempre. Nadie, tampoco nosotros, puede recuperarlos.'],
       ['¿Puedo usarlo en el móvil?', 'Sí, la web funciona en móvil. Pero lo más seguro es un ordenador desconectado de internet con la versión offline.'],
+      ['¿Es una alternativa a bitaddress.org?', 'Sí. Hace lo mismo que los generadores clásicos de carteras de papel, pero con el estándar actual: direcciones SegWit bc1q (comisiones más bajas), frase semilla BIP39 que entiende cualquier wallet moderna, PDF plegable y versión offline en un solo archivo.'],
+      ['¿Puedo regalar bitcoin con una cartera de papel?', 'Sí, es uno de sus mejores usos. Genera la dirección, envía una cantidad pequeña, imprime el PDF, dóblalo y regálalo. Quien lo reciba podrá importar la frase en su wallet y gastar los fondos.'],
+      ['¿Cuánto cuesta?', 'Nada. La web es gratuita, no tiene registro, ni publicidad, ni comisiones. Solo pagarás la comisión normal de la red Bitcoin cuando envíes o gastes fondos.'],
     ],
   },
 
@@ -179,6 +196,9 @@ const en: Dict = {
     'Free Bitcoin SegWit (bc1q) address generator with a 12 or 24-word BIP39 seed phrase, created right in your browser and downloadable as a PDF paper wallet. Meant for small amounts only.',
   ogAlt: '3D Bitcoin coin and paper wallet by direccionesbitcoin.com',
   nav: { gen: 'Generate', bulk: 'Bulk', offline: 'Offline', guide: 'Guide', faq: 'FAQ' },
+  keywords: 'bitcoin address generator, bitcoin address, bitcoin paper wallet, paper wallet, seed phrase, BIP39, BIP84, SegWit, bc1q, WIF private key, gift bitcoin, offline bitcoin wallet, bitaddress alternative',
+  howTo: { name: 'How to create a Bitcoin paper wallet', steps: ['Open direccionesbitcoin.com (or its offline version) and move your mouse over the coin to add randomness.', 'Choose a 12 or 24-word seed phrase and press “Generate address”.', 'Download the PDF wallet, print it, cut it out and fold it along the centre line.', 'Send only a small amount of bitcoin to the bc1q address on the public side.'] },
+  breadcrumb: 'Home',
   langSwitch: 'ES',
   langSwitchLabel: 'Ver en español',
   skip: 'Skip to generator',
@@ -288,6 +308,17 @@ const en: Dict = {
     ],
   },
 
+  about: {
+    kicker: '07 — About direccionesbitcoin.com',
+    title: 'A Bitcoin address and paper wallet generator, made for small things',
+    paras: [
+      'direccionesbitcoin.com is a free Bitcoin address generator that creates, right in your browser, a native SegWit (bc1q) address together with its BIP39 seed phrase and WIF private key. It is a modern alternative to classic paper wallet generators such as bitaddress.org, using today’s BIP84 standard, compatible with any wallet.',
+      'You can download your Bitcoin paper wallet as a print-ready PDF to cut out and fold; create many addresses at once to gift bitcoin at events, classes or giveaways; or use the offline version, with no internet connection, for maximum safety.',
+      'Its purpose is educational and practical: gifting your first satoshis, receiving tips or trying Bitcoin with small amounts. To store savings, always use a hardware wallet.',
+    ],
+    tags: ['Bitcoin address generator', 'Bitcoin paper wallet', 'Paper wallet', 'BIP39 seed phrase', 'SegWit bc1q', 'Gift bitcoin', 'Offline Bitcoin wallet', 'WIF private key'],
+  },
+
   faq: {
     kicker: '06 — FAQ',
     title: 'Frequently asked questions',
@@ -300,6 +331,9 @@ const en: Dict = {
       ['What is m/84\'/0\'/0\'/0/0?', 'It is the derivation path: it tells the wallet which address to take from your phrase. It is the first standard BIP84 receiving address, the one any wallet shows when importing the phrase.'],
       ['What if I lose the paper?', 'If you lose both the seed phrase and the private key, the bitcoin at that address are lost forever. Nobody, including us, can recover them.'],
       ['Can I use it on my phone?', 'Yes, the site works on mobile. But the safest option is a computer disconnected from the internet using the offline version.'],
+      ['Is it an alternative to bitaddress.org?', 'Yes. It does the same as classic paper wallet generators, but with today’s standard: SegWit bc1q addresses (lower fees), a BIP39 seed phrase any modern wallet understands, a foldable PDF and a single-file offline version.'],
+      ['Can I gift bitcoin with a paper wallet?', 'Yes, it is one of its best uses. Generate the address, send a small amount, print the PDF, fold it and give it away. The recipient can import the phrase into their wallet and spend the funds.'],
+      ['How much does it cost?', 'Nothing. The site is free, with no sign-up, ads or fees. You only pay the normal Bitcoin network fee when you send or spend funds.'],
     ],
   },
 

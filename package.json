@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "node scripts/build.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "author": "Félix Loureiro Etcheverría (https://www.felixle.com)",
   "license": "UNLICENSED",

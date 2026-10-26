@@ -8,6 +8,7 @@ import type { Wallet } from './wallet';
 import type { Dict } from '../i18n';
 import { faceCanvas } from './coinart';
 import { BTC_PATH } from './btcpath';
+import { assertSealed, AUTHOR } from './sig';
 
 type RGB = [number, number, number];
 const ORANGE: RGB = [247, 147, 26];
@@ -394,13 +395,14 @@ function drawPage(doc: JsPDF, w: Wallet, t: Dict['pdf'], lang: string, page: num
 }
 
 export async function buildPdf(wallets: Wallet[], t: Dict['pdf'], lang: string): Promise<Blob> {
+  assertSealed();
   const { jsPDF } = await import('jspdf');
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   doc.setProperties({
     title: `${t.title} · ${wallets.length === 1 ? wallets[0].address : wallets.length}`,
     subject: t.title,
-    author: 'direccionesbitcoin.com',
-    creator: 'direccionesbitcoin.com',
+    author: AUTHOR(),
+    creator: `direccionesbitcoin.com · ${AUTHOR()}`,
     keywords: 'bitcoin, paper wallet, bc1q, bip39, bip84',
   });
   wallets.forEach((w, i) => {

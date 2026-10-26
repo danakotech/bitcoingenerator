@@ -27,55 +27,152 @@ const icon = {
 export const btcMark = (cls = 'mark') =>
   `<svg class="${cls}" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#F7931A"/><path fill="#fff" transform="rotate(14 32 32)" d="${BTC_PATH}"/></svg>`;
 
-export function renderHead(lang: Lang): string {
+export const AUTHOR_NAME = 'Félix Loureiro Etcheverría';
+export const AUTHOR_URL = 'https://www.felixle.com/';
+
+/** Cabecera SEO completa. `extra` permite inyectar verificaciones (Google/Bing) en build. */
+export function renderHead(lang: Lang, opts: { modified?: string; extra?: string } = {}): string {
   const t = dict[lang];
   const url = lang === 'es' ? `${SITE}/` : `${SITE}/en/`;
-  const ld = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      '@id': `${url}#app`,
-      name: lang === 'es' ? 'Direcciones Bitcoin' : 'Bitcoin Addresses',
-      url,
-      inLanguage: lang,
-      applicationCategory: 'FinanceApplication',
-      operatingSystem: 'Any (web browser)',
-      description: t.metaDesc,
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
-      author: { '@type': 'Person', name: 'Félix Loureiro Etcheverría', url: 'https://www.felixle.com/' },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      '@id': `${url}#faq`,
-      mainEntity: t.faq.items.map(([q, a]) => ({
-        '@type': 'Question',
-        name: q,
-        acceptedAnswer: { '@type': 'Answer', text: a },
-      })),
-    },
-  ];
+  const name = lang === 'es' ? 'Direcciones Bitcoin' : 'Bitcoin Addresses';
+  const og = `${SITE}/og-${lang}.png`;
+  const modified = opts.modified ?? new Date().toISOString().slice(0, 10);
+  const person = {
+    '@type': 'Person',
+    '@id': `${AUTHOR_URL}#person`,
+    name: AUTHOR_NAME,
+    url: AUTHOR_URL,
+    sameAs: [AUTHOR_URL],
+    jobTitle: lang === 'es' ? 'Desarrollador blockchain y diseñador web' : 'Blockchain developer and web designer',
+    knowsAbout: ['Bitcoin', 'Blockchain', 'BIP39', 'Web3', 'WebGL'],
+  };
+  const ref = { '@id': `${AUTHOR_URL}#person` };
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      person,
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
+        url: `${SITE}/`,
+        name: 'direccionesbitcoin.com',
+        alternateName: ['Direcciones Bitcoin', 'Bitcoin Addresses'],
+        description: t.metaDesc,
+        inLanguage: ['es', 'en'],
+        author: ref,
+        creator: ref,
+        publisher: ref,
+        copyrightHolder: ref,
+        copyrightYear: 2026,
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: t.htmlTitle,
+        description: t.metaDesc,
+        inLanguage: lang,
+        isPartOf: { '@id': `${SITE}/#website` },
+        about: { '@id': `${url}#app` },
+        mainEntity: { '@id': `${url}#app` },
+        primaryImageOfPage: { '@type': 'ImageObject', url: og, width: 1200, height: 630 },
+        datePublished: '2026-10-26',
+        dateModified: modified,
+        author: ref,
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+        keywords: t.keywords,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [{ '@type': 'ListItem', position: 1, name: t.breadcrumb, item: url }],
+      },
+      {
+        '@type': ['WebApplication', 'SoftwareApplication'],
+        '@id': `${url}#app`,
+        name,
+        url,
+        inLanguage: lang,
+        applicationCategory: 'FinanceApplication',
+        applicationSubCategory: 'Bitcoin paper wallet generator',
+        operatingSystem: 'Any (web browser)',
+        browserRequirements: 'Requires JavaScript and Web Crypto API',
+        isAccessibleForFree: true,
+        description: t.metaDesc,
+        image: og,
+        screenshot: og,
+        featureList: [t.gen.w12, t.gen.w24, 'SegWit bc1q (BIP84)', t.gen.pdf, t.bulk.title, t.offline.btn],
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+        author: ref,
+        creator: ref,
+        publisher: ref,
+        datePublished: '2026-10-26',
+      },
+      {
+        '@type': 'HowTo',
+        '@id': `${url}#howto`,
+        name: t.howTo.name,
+        inLanguage: lang,
+        totalTime: 'PT3M',
+        estimatedCost: { '@type': 'MonetaryAmount', currency: 'EUR', value: '0' },
+        tool: [{ '@type': 'HowToTool', name: lang === 'es' ? 'Impresora' : 'Printer' }],
+        step: t.howTo.steps.map((text, i) => ({ '@type': 'HowToStep', position: i + 1, name: text.split(/[.,(]/)[0], text, url: `${url}#generar` })),
+        author: ref,
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${url}#faq`,
+        inLanguage: lang,
+        author: ref,
+        mainEntity: t.faq.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+      },
+    ],
+  };
+  const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
   return `
     <title>${esc(t.htmlTitle)}</title>
     <meta name="description" content="${esc(t.metaDesc)}" />
-    <meta name="author" content="Félix Loureiro Etcheverría" />
+    <meta name="keywords" content="${esc(t.keywords)}" />
+    <meta name="author" content="${AUTHOR_NAME}" />
+    <meta name="creator" content="${AUTHOR_NAME}" />
+    <meta name="publisher" content="${AUTHOR_NAME}" />
+    <meta name="copyright" content="© 2026 ${AUTHOR_NAME}" />
+    <meta name="robots" content="${robots}" />
+    <meta name="googlebot" content="${robots}" />
+    <meta name="bingbot" content="${robots}" />
+    <meta name="application-name" content="direccionesbitcoin.com" />
+    <meta name="apple-mobile-web-app-title" content="${name}" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="rating" content="general" />
+    <link rel="author" href="${AUTHOR_URL}" />
+    <link rel="me" href="${AUTHOR_URL}" />
     <link rel="canonical" href="${url}" />
     <link rel="alternate" hreflang="es" href="${SITE}/" />
     <link rel="alternate" hreflang="en" href="${SITE}/en/" />
     <link rel="alternate" hreflang="x-default" href="${SITE}/" />
+    <link rel="alternate" type="text/plain" href="${SITE}/llms.txt" title="llms.txt" />
+    <link rel="sitemap" type="application/xml" href="${SITE}/sitemap.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="direccionesbitcoin.com" />
     <meta property="og:url" content="${url}" />
     <meta property="og:title" content="${esc(t.htmlTitle)}" />
     <meta property="og:description" content="${esc(t.metaDesc)}" />
-    <meta property="og:image" content="${SITE}/og-${lang}.png" />
+    <meta property="og:image" content="${og}" />
+    <meta property="og:image:secure_url" content="${og}" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${esc(t.ogAlt)}" />
     <meta property="og:locale" content="${lang === 'es' ? 'es_ES' : 'en_US'}" />
+    <meta property="og:locale:alternate" content="${lang === 'es' ? 'en_US' : 'es_ES'}" />
+    <meta property="article:author" content="${AUTHOR_URL}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="${SITE}/og-${lang}.png" />
-    <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>`;
+    <meta name="twitter:title" content="${esc(t.htmlTitle)}" />
+    <meta name="twitter:description" content="${esc(t.metaDesc)}" />
+    <meta name="twitter:image" content="${og}" />
+    <meta name="twitter:image:alt" content="${esc(t.ogAlt)}" />
+    ${opts.extra ?? ''}
+    <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>`;
 }
 
 export function renderBody(lang: Lang, meta: BuildMeta): string {
@@ -278,6 +375,16 @@ export function renderBody(lang: Lang, meta: BuildMeta): string {
     </div>
   </section>`;
 
+  const about = `
+  <section class="section about" id="sobre">
+    <div class="wrap narrow">
+      <p class="kicker reveal">${t.about.kicker}</p>
+      <h2 class="reveal">${t.about.title}</h2>
+      ${t.about.paras.map((p) => `<p class="lead reveal">${p}</p>`).join('')}
+      <ul class="tags reveal">${t.about.tags.map((x) => `<li>${x}</li>`).join('')}</ul>
+    </div>
+  </section>`;
+
   const faq = `
   <section class="section faq" id="faq">
     <div class="wrap narrow">
@@ -302,6 +409,6 @@ export function renderBody(lang: Lang, meta: BuildMeta): string {
     </div>
   </footer>`;
 
-  return `${header}<main id="main">${hero}${small}${gen}${bulk}${offline}${guide}${faq}</main>${footer}
+  return `${header}<main id="main">${hero}${small}${gen}${bulk}${offline}${guide}${about}${faq}</main>${footer}
   <div class="toast" role="status" aria-live="polite" data-toast></div>`;
 }

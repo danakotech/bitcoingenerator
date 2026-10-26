@@ -12,6 +12,7 @@ import Lenis from 'lenis';
 import { dict, type Lang } from './i18n';
 import { renderBody } from './content';
 import type { SceneApi } from './scene';
+import { seal, watchAuthorship, onAuthorshipBroken } from './lib/sig';
 import { addUserEntropy, userEntropyBits, generateWallet, type Wallet, type Words } from './lib/wallet';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -401,6 +402,15 @@ function boot() {
 async function start() {
   boot();
   document.documentElement.classList.add('ready');
+  // Sin autoría original no hay web
+  onAuthorshipBroken(() => {
+    current = null;
+    batch = [];
+    lenis?.destroy();
+    ScrollTrigger.getAll().forEach((s) => s.kill());
+  });
+  if (!seal({ ld: !OFFLINE })) return;
+  watchAuthorship({ ld: !OFFLINE });
   try {
     // la textura de la moneda usa Space Grotesk: esperamos a la fuente
     await document.fonts.load('600 38px "Space Grotesk Variable"');
