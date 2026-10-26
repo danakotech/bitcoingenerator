@@ -46,7 +46,7 @@ Este repositorio te quita esa confianza de encima:
 - 🌍 Español e inglés.
 - ✅ Tests con el vector oficial de BIP84 (`abandon … about → bc1qcr8te4kr609gcawutmrza0j4xv80jy8z306fyu`).
 
-Criptografía basada en las librerías auditadas de [Paul Miller](https://paulmillr.com/): `@scure/bip39`, `@scure/bip32`, `@scure/base` y `@noble/hashes`.
+Criptografía basada en las librerías auditadas : `@scure/bip39`, `@scure/bip32`, `@scure/base` y `@noble/hashes`.
 
 ---
 
