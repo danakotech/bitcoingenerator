@@ -25,7 +25,7 @@ const icon = {
 };
 
 export const btcMark = (cls = 'mark') =>
-  `<svg class="${cls}" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#F7931A"/><path fill="#fff" transform="rotate(14 32 32)" d="${BTC_PATH}"/></svg>`;
+  `<svg class="${cls}" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#F7931A"/><path fill="#fff" d="${BTC_PATH}"/></svg>`;
 
 export const AUTHOR_NAME = 'Félix Loureiro Etcheverría';
 export const AUTHOR_URL = 'https://www.felixle.com/';

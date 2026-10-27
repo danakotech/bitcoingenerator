@@ -59,7 +59,6 @@ function markImage(): string {
   g.arc(S / 2, S / 2, S / 2 - 2, 0, Math.PI * 2);
   g.fill();
   g.translate(S / 2, S / 2);
-  g.rotate((14 * Math.PI) / 180);
   g.scale(S / 64, S / 64);
   g.translate(-32, -32);
   g.fillStyle = '#fff';

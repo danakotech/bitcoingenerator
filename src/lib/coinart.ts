@@ -68,7 +68,6 @@ export function faceCanvas(kind: 'color' | 'bump', size = 1024): HTMLCanvasEleme
   const p = new Path2D(BTC_PATH);
   g.save();
   g.translate(cx, cx);
-  g.rotate(0.24);
   const k = 12.5;
   g.scale(k, k);
   g.translate(-32, -32);
